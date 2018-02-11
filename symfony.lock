@@ -1,4 +1,40 @@
 {
+    "clue/redis-protocol": {
+        "version": "v0.3.1"
+    },
+    "clue/redis-react": {
+        "version": "v2.2.0"
+    },
+    "doctrine/annotations": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "cb4152ebcadbe620ea2261da1a1c5a9b8cea7672"
+        }
+    },
+    "doctrine/cache": {
+        "version": "v1.7.1"
+    },
+    "doctrine/collections": {
+        "version": "v1.5.0"
+    },
+    "doctrine/common": {
+        "version": "v2.8.1"
+    },
+    "doctrine/inflector": {
+        "version": "v1.3.0"
+    },
+    "doctrine/lexer": {
+        "version": "v1.0.1"
+    },
+    "evenement/evenement": {
+        "version": "v3.0.1"
+    },
+    "predis/predis": {
+        "version": "v1.1.1"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -10,6 +46,45 @@
     },
     "psr/simple-cache": {
         "version": "1.0.0"
+    },
+    "react/cache": {
+        "version": "v0.4.2"
+    },
+    "react/dns": {
+        "version": "v0.4.12"
+    },
+    "react/event-loop": {
+        "version": "v0.4.3"
+    },
+    "react/promise": {
+        "version": "v2.5.1"
+    },
+    "react/promise-timer": {
+        "version": "v1.2.1"
+    },
+    "react/socket": {
+        "version": "v0.8.9"
+    },
+    "react/stream": {
+        "version": "v0.7.7"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
+        }
+    },
+    "snc/redis-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "9ef855ff444add54c2d66bdf3f4b7b2b6a120259"
+        }
     },
     "symfony/cache": {
         "version": "v4.0.4"
@@ -74,6 +149,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.7.0"
     },
+    "symfony/process": {
+        "version": "v4.0.4"
+    },
     "symfony/routing": {
         "version": "4.0",
         "recipe": {
@@ -83,7 +161,40 @@
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
     },
+    "symfony/twig-bridge": {
+        "version": "v4.0.4"
+    },
+    "symfony/twig-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "f75ac166398e107796ca94cc57fa1edaa06ec47f"
+        }
+    },
+    "symfony/web-server-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "c72d107d077f1654428edaed69415d0228c1aefe"
+        }
+    },
     "symfony/yaml": {
         "version": "v4.0.4"
+    },
+    "twig/twig": {
+        "version": "v2.4.4"
+    },
+    "workerman/channel": {
+        "version": "v1.0.3"
+    },
+    "workerman/phpsocket.io": {
+        "version": "v1.1.5"
+    },
+    "workerman/workerman": {
+        "version": "v3.5.4"
     }
 }

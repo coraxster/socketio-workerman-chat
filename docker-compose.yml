@@ -1,0 +1,96 @@
+version: "2"
+
+volumes:
+#  data_mysql:
+#    driver: local
+  data_redis:
+    driver: local
+
+services:
+
+  code:
+    image: tianon/true
+    volumes:
+      - ./:/app
+
+#  Container for service
+  workspace:
+    build:
+      context: docker/php
+      args:
+        - INSTALL_COMPOSER=true
+    volumes_from:
+      - code
+    links:
+      - web
+      - redis
+#      - db
+    tty: true
+    working_dir: /app
+    command: sh -c "sh"
+
+#  PHP-FPM
+  php:
+    build:
+      context: docker/php
+      args:
+        - INSTALL_PHPUNIT=true
+    volumes_from:
+      - code
+    links:
+#      - db
+      - redis
+    tty: true
+    environment:
+      - REDIS_URL=redis://redis
+      - WS_PORT=2020
+
+#   WebSocket Server
+  ws_server:
+    build:
+      context: docker/php
+    volumes_from:
+      - code
+    ports:
+      - 2020:2020
+    links:
+#      - db
+      - redis
+    working_dir: /app
+    tty: true
+    restart: always
+    environment:
+     - REDIS_URL=redis
+     - WS_PORT=2020
+    command: php bin/serve_io.php start
+
+  redis:
+    image: redis
+    volumes:
+      - data_redis:/data
+
+# nginx
+  web:
+    build:
+      context: docker/nginx
+    volumes_from:
+      - code
+    ports:
+      - 8085:80
+    links:
+      - php
+    environment:
+     - NGINX_HOST=chat.loc
+     - NGINX_PORT=80
+     - FPM_HOST=php
+     - FPM_PORT=9000
+
+#  db:
+#    image: mysql
+#    ports:
+#      - 3309:3306
+#    environment:
+#      MYSQL_DATABASE: secret
+#      MYSQL_USER: secret
+#      MYSQL_PASSWORD: secret
+#      MYSQL_ROOT_PASSWORD: secret

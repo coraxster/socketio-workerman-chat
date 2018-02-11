@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Welcome to chat</span> {{ room }}</h1>
+            </div>
+
+            <div class="chat-wrapper">
+
+                <form class="login" onsubmit="return enterChat()">
+                    <input type="text" placeholder="Your name" class="user-name">
+                    <input type="submit" class="enter" value="enter">
+                </form>
+
+                <div class="chat-list">
+                    <div class="chat-head">
+                        <p><h4>Hey, <span class="chat-user-name"></span>!</h4></p>
+                    </div>
+                    <textarea disabled class="chat-box"></textarea>
+                    <form onsubmit="return sendMessage()">
+                        <input type="text" class="chat-input">
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script>
+        function enterChat() {
+            userName = $('.user-name').val();
+            socket.emit('enter', {'user-name': userName});
+            return false;
+        }
+
+        function sendMessage() {
+            var msg = $('.chat-input').val();
+            if (msg.length){
+                socket.emit('send-message', {'msg': msg});
+                $('.chat-input').val('')
+            }
+            return false;
+        }
+
+        var socket = io('http://127.0.0.1:2020', {
+            transports: ['websocket'],
+            query: {
+                room: '{{ room }}'
+            }
+        });
+
+        socket.on('err', function(data){
+            console.error('WS error :( ' + data);
+            $('.login').show();
+        });
+
+
+        socket.on('connect', function(){
+            $('.chat-wrapper').show();
+            $('.chat-input').focus();
+        });
+
+        socket.on('disconnect', function(){
+            $('.chat-input').prop('disabled', true);
+        });
+
+        socket.on('entered', function(data){
+            $('.login').hide();
+            $('.chat-user-name').text(data);
+            $('.chat-list').show();
+        });
+
+
+        socket.on('new-message', function(data){
+            var chatData = $('.chat-box').val();
+            data.forEach(function(entry) {
+                chatData = chatData + entry.userName + ": " + entry.msg + "\r\n";
+            });
+            $('.chat-box').val(chatData);
+            $('.chat-box').scrollTop($('.chat-box')[0].scrollHeight - $('.chat-box').height());
+        });
+
+
+
+
+    </script>
+{% endblock %}
