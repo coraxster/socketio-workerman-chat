@@ -4,7 +4,8 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Welcome to chat</span> {{ room }}</h1>
+                <h1><span>Welcome to chat</span> {{ room }} </h1>
+                <h3><a href="{{ path('chatRoom', {'room': room}) }}">chat link</a></h3>
             </div>
 
             <div class="chat-wrapper">
