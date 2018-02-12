@@ -69,7 +69,7 @@ $io->on('connection', function (Socket $socket) use ($io) {
             REDIS_MESSAGES_PREFIX . $room,
             json_encode(['userName' => 'ChatBot', 'msg' => 'Welcome ' . $userName . '!'])
         );
-        $io->redis->lrange('chat.room-log.' . $room, 0, -1)
+        $io->redis->lrange(REDIS_LOG_PREFIX . $room, 0, -1)
             ->then(function($log) use ($socket) {
                 $history = [];
                 foreach ($log as $messageData) {
